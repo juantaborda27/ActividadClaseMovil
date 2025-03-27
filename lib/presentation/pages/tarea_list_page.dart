@@ -1,5 +1,3 @@
-
-
 // import 'package:app_clase_juan/domain/controller/tarea_controller.dart';
 // import 'package:flutter/widgets.dart';
 
@@ -13,7 +11,6 @@
 //     return Container();
 //   }
 // }
-
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -104,7 +101,8 @@ class _TareaFormPageState extends State<TareaFormPage> {
   void initState() {
     super.initState();
     _nombreController = TextEditingController(text: widget.tarea?.nombre ?? '');
-    _detalleController = TextEditingController(text: widget.tarea?.detalle ?? '');
+    _detalleController =
+        TextEditingController(text: widget.tarea?.detalle ?? '');
     _estado = widget.tarea?.estado ?? 'pendiente';
   }
 
@@ -128,7 +126,8 @@ class _TareaFormPageState extends State<TareaFormPage> {
             children: [
               TextFormField(
                 controller: _nombreController,
-                decoration: const InputDecoration(labelText: 'Nombre de la Tarea'),
+                decoration:
+                    const InputDecoration(labelText: 'Nombre de la Tarea'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Por favor ingresa un nombre';
@@ -159,7 +158,8 @@ class _TareaFormPageState extends State<TareaFormPage> {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _submitForm,
-                child: Text(widget.tarea == null ? 'Crear Tarea' : 'Actualizar Tarea'),
+                child: Text(
+                    widget.tarea == null ? 'Crear Tarea' : 'Actualizar Tarea'),
               ),
             ],
           ),
@@ -177,10 +177,15 @@ class _TareaFormPageState extends State<TareaFormPage> {
         id: widget.tarea?.id ?? DateTime.now().millisecondsSinceEpoch,
       );
 
+      // if (widget.tarea == null) {
+      //   _tareaController.craeteTarea(nuevaTarea);
+      // } else {
+      //   _tareaController.updateTarea(widget.tarea!.id, nuevaTarea);
+      // }
       if (widget.tarea == null) {
         _tareaController.craeteTarea(nuevaTarea);
-      } else {
-        _tareaController.updateTarea(widget.tarea!.id, nuevaTarea);
+      } else if (widget.tarea!.id != null) {
+        _tareaController.updateTarea(widget.tarea!.id!, nuevaTarea);
       }
 
       Get.back(); // Regresar a la lista de tareas

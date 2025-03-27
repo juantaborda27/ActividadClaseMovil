@@ -7,12 +7,14 @@ import 'package:http/http.dart' as http;
 class TareaRepository {
 
 
-  final String baseUrl = 'https://nk0blh78-8000.use2.devtunnels.ms';
+  // final String baseUrl = 'https://nk0blh78-8000.use2.devtunnels.ms';
+    final String baseUrl = 'https://nk0blh78-8000.use2.devtunnels.ms/tareas/';
+    
 
 
   Future<List<Tarea>> getTareas() async {
     try {
-      final response = await http.get(Uri.parse('$baseUrl/tareas/'));
+      final response = await http.get(Uri.parse('$baseUrl'));
       if(response.statusCode == 200){
         final List jsonList = json.decode(response.body);
         return jsonList.map((json) => Tarea.fromJson(json)).toList();
@@ -20,14 +22,14 @@ class TareaRepository {
         throw Exception('Error al cargar las tareas ${response.statusCode}');
       }
     } catch (e) {
-      throw Exception('Error de conexion: ${e}');
+      throw Exception('Error de conexion1: ${e}');
     }
   }
 
 
   Future getTareaById(int id) async{
     try {
-      final response = await http.get(Uri.parse('$baseUrl/tareas/$id'));
+      final response = await http.get(Uri.parse('$baseUrl/$id'));
       if(response.statusCode == 200){
         return Tarea.fromJson(json.decode(response.body));
       }else{
@@ -42,9 +44,9 @@ class TareaRepository {
   Future<Tarea> createTarea(Tarea tarea) async{
     try {
       final response = await http.post(
-        Uri.parse('$baseUrl/tareas/'),
+        Uri.parse('$baseUrl'),
         headers: {'Content-Type': 'application/json'},
-        body: json.encode(tarea.toJson()),
+        body: json.encode(tarea.toJson2()),
       );
 
       if(response.statusCode == 201){
@@ -61,7 +63,7 @@ class TareaRepository {
   Future<Tarea> updateTarea(int id, Tarea tarea) async{
     try {
       final response = await http.put(
-        Uri.parse('$baseUrl/tareas/$id'),
+        Uri.parse('$baseUrl/$id'),
         headers: {'Content-Type': 'application/json'},
         body: json.encode(tarea.toJson()),
       );
@@ -79,7 +81,7 @@ class TareaRepository {
 
   Future<void> deleteTarea(int id) async{
     try {
-      final response = await http.delete(Uri.parse('$baseUrl/tareas/$id'));
+      final response = await http.delete(Uri.parse('$baseUrl/$id'));
       if(response.statusCode == 204){
         return;
       }else{
