@@ -23,4 +23,37 @@ class TareaRepository {
       throw Exception('Error de conexion: ${e}');
     }
   }
+
+
+  Future getTareaById(int id) async{
+    try {
+      final response = await http.get(Uri.parse('$baseUrl/tareas/$id'));
+      if(response.statusCode == 200){
+        return Tarea.fromJson(json.decode(response.body));
+      }else{
+        throw Exception('Error al cargar la tarea ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Error de conexion2: ${e}');
+    }
+  }
+
+
+  Future<Tarea> createTarea(Tarea tarea) async{
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/tareas/'),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode(tarea.toJson()),
+      );
+
+      if(response.statusCode == 201){
+        return Tarea.fromJson(json.decode(response.body));
+      }else{
+        throw Exception('Error al crear la tarea ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Error de conexion3');
+    }
+  }
 }
