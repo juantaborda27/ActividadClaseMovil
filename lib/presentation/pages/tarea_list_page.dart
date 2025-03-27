@@ -174,14 +174,8 @@ class _TareaFormPageState extends State<TareaFormPage> {
         nombre: _nombreController.text,
         detalle: _detalleController.text,
         estado: _estado,
-        id: widget.tarea?.id ?? DateTime.now().millisecondsSinceEpoch,
+        id: widget.tarea?.id,
       );
-
-      // if (widget.tarea == null) {
-      //   _tareaController.craeteTarea(nuevaTarea);
-      // } else {
-      //   _tareaController.updateTarea(widget.tarea!.id, nuevaTarea);
-      // }
       if (widget.tarea == null) {
         _tareaController.craeteTarea(nuevaTarea);
       } else if (widget.tarea!.id != null) {

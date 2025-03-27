@@ -22,7 +22,7 @@ class TareaRepository {
         throw Exception('Error al cargar las tareas ${response.statusCode}');
       }
     } catch (e) {
-      throw Exception('Error de conexion1: ${e}');
+      throw Exception('Error de conexion1: $e');
     }
   }
 
@@ -36,7 +36,7 @@ class TareaRepository {
         throw Exception('Error al cargar la tarea ${response.statusCode}');
       }
     } catch (e) {
-      throw Exception('Error de conexion2: ${e}');
+      throw Exception('Error de conexion2: $e');
     }
   }
 
@@ -44,9 +44,13 @@ class TareaRepository {
   Future<Tarea> createTarea(Tarea tarea) async{
     try {
       final response = await http.post(
-        Uri.parse('$baseUrl'),
+        Uri.parse(baseUrl),
         headers: {'Content-Type': 'application/json'},
-        body: json.encode(tarea.toJson2()),
+        body: json.encode({
+          'nombre': tarea.nombre,
+          'detalle': tarea.detalle,
+          'estado': tarea.estado,
+        }),
       );
 
       if(response.statusCode == 201){
