@@ -81,7 +81,7 @@ class TareaRepository {
 
   Future<void> deleteTarea(int id) async{
     try {
-      final response = await http.delete(Uri.parse('$baseUrl/$id'));
+      final response = await http.delete(Uri.parse('$baseUrl$id'));
       if(response.statusCode == 204){
         return;
       }else{
