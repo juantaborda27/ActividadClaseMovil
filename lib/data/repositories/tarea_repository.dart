@@ -63,7 +63,7 @@ class TareaRepository {
   Future<Tarea> updateTarea(int id, Tarea tarea) async{
     try {
       final response = await http.put(
-        Uri.parse('$baseUrl/$id'),
+        Uri.parse('$baseUrl$id'),
         headers: {'Content-Type': 'application/json'},
         body: json.encode(tarea.toJson()),
       );
