@@ -35,6 +35,19 @@ class TareaController extends GetxController{
     }
   }
 
+  Future<Tarea?> getTareaById(int id) async {
+    try {
+      isLoading.value = true;
+      error.value = '';
+      return await repository.getTareaById(id);
+    } catch (e) {
+      error.value = e.toString();
+      return null;
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
   void toggleCompleted(int i){
     final tarea = tareas[i];
     tareas[i] = Tarea(
